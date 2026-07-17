@@ -1,192 +1,651 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Harsh's Portfolio</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Harsh Panchal — Technical Support Specialist</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #1B2E4B;
+      --blue: #2563EB;
+      --blue-light: #EFF6FF;
+      --accent: #0EA5E9;
+      --green: #059669;
+      --white: #FFFFFF;
+      --bg: #F8FAFC;
+      --surface: #FFFFFF;
+      --border: #E2E8F0;
+      --text: #1E293B;
+      --muted: #64748B;
+      --light: #94A3B8;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 3rem; height: 64px;
+    }
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem; color: var(--navy); letter-spacing: -0.01em;
+    }
+    .nav-logo span { color: var(--blue); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      font-size: 0.875rem; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--blue); }
+    .nav-cta {
+      background: var(--blue); color: var(--white) !important;
+      padding: 0.5rem 1.25rem; border-radius: 6px;
+      font-weight: 600 !important;
+    }
+    .nav-cta:hover { background: #1D4ED8; color: var(--white) !important; }
+
+    /* HERO */
+    .hero {
+      padding: 7rem 3rem 5rem;
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 420px;
+      gap: 5rem; align-items: center;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: #ECFDF5; border: 1px solid #A7F3D0;
+      color: var(--green); padding: 0.4rem 0.9rem;
+      border-radius: 100px; font-size: 0.78rem; font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green); animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; } 50% { opacity: 0.4; }
+    }
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.4rem, 4vw, 3.2rem);
+      line-height: 1.15; color: var(--navy);
+      letter-spacing: -0.02em; margin-bottom: 1.25rem;
+    }
+    .hero h1 em { color: var(--blue); font-style: normal; }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--muted);
+      line-height: 1.8; margin-bottom: 2rem; max-width: 480px;
+    }
+    .hero-ctas { display: flex; gap: 0.875rem; flex-wrap: wrap; margin-bottom: 3rem; }
+    .btn-blue {
+      background: var(--blue); color: var(--white);
+      padding: 0.8rem 1.6rem; border-radius: 8px;
+      font-weight: 600; font-size: 0.9rem;
+      text-decoration: none; transition: background 0.2s, transform 0.15s;
+    }
+    .btn-blue:hover { background: #1D4ED8; transform: translateY(-1px); }
+    .btn-outline {
+      border: 1.5px solid var(--border); color: var(--text);
+      padding: 0.8rem 1.6rem; border-radius: 8px;
+      font-weight: 500; font-size: 0.9rem;
+      text-decoration: none; transition: border-color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--blue); color: var(--blue); }
+    .hero-meta {
+      display: flex; gap: 2rem; flex-wrap: wrap;
+    }
+    .hero-meta-item { display: flex; align-items: center; gap: 0.5rem; }
+    .hero-meta-item span { font-size: 0.85rem; color: var(--muted); }
+    .hero-meta-icon { font-size: 1rem; }
+
+    /* PROFILE CARD */
+    .profile-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+    .profile-card-top {
+      background: linear-gradient(135deg, var(--navy) 0%, #2563EB 100%);
+      padding: 2rem; text-align: center;
+    }
+    .profile-avatar {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      border: 3px solid rgba(255,255,255,0.4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; margin: 0 auto 1rem;
+    }
+    .profile-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.2rem; color: var(--white); margin-bottom: 0.25rem;
+    }
+    .profile-title { font-size: 0.82rem; color: rgba(255,255,255,0.7); }
+    .profile-body { padding: 1.5rem; }
+    .profile-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.7rem 0; border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+    }
+    .profile-row:last-child { border-bottom: none; }
+    .profile-row-label { color: var(--muted); font-weight: 500; }
+    .profile-row-val { color: var(--text); font-weight: 600; }
+    .badge-green {
+      background: #ECFDF5; color: var(--green);
+      padding: 0.2rem 0.6rem; border-radius: 100px;
+      font-size: 0.75rem; font-weight: 600;
+    }
+    .badge-blue {
+      background: var(--blue-light); color: var(--blue);
+      padding: 0.2rem 0.6rem; border-radius: 100px;
+      font-size: 0.75rem; font-weight: 600;
+    }
+
+    /* SECTIONS */
+    section { padding: 5rem 3rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-header { margin-bottom: 3rem; }
+    .section-label {
+      font-size: 0.75rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--blue); margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.7rem, 3vw, 2.1rem);
+      color: var(--navy); letter-spacing: -0.02em;
+    }
+
+    /* ABOUT */
+    #about { background: var(--white); }
+    .about-grid {
+      display: grid; grid-template-columns: 1.1fr 0.9fr;
+      gap: 4rem; align-items: start;
+    }
+    .about-text p {
+      color: var(--muted); line-height: 1.9;
+      font-size: 0.95rem; margin-bottom: 1rem;
+    }
+    .about-text p strong { color: var(--text); }
+    .cert-card {
+      background: var(--blue-light); border: 1px solid #BFDBFE;
+      border-radius: 10px; padding: 1rem 1.25rem;
+      display: flex; align-items: center; gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+    .cert-card-icon { font-size: 1.5rem; }
+    .cert-card-label { font-size: 0.72rem; color: var(--blue); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+    .cert-card-name { font-size: 0.9rem; color: var(--navy); font-weight: 700; }
+
+    .skills-list { display: grid; gap: 0.75rem; }
+    .skill-block {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1rem 1.25rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .skill-block:hover {
+      border-color: #BFDBFE;
+      box-shadow: 0 2px 12px rgba(37,99,235,0.06);
+    }
+    .skill-block-label {
+      font-size: 0.72rem; font-weight: 700; color: var(--light);
+      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.6rem;
+    }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tag {
+      background: var(--white); border: 1px solid var(--border);
+      color: var(--text); padding: 0.25rem 0.7rem;
+      border-radius: 6px; font-size: 0.78rem; font-weight: 500;
+    }
+
+    /* EXPERIENCE */
+    #experience { background: var(--bg); }
+    .exp-list { display: grid; gap: 1.25rem; }
+    .exp-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.75rem 2rem;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+    .exp-card:hover {
+      box-shadow: 0 6px 24px rgba(0,0,0,0.07);
+      border-color: #BFDBFE;
+    }
+    .exp-top {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; flex-wrap: wrap; gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .exp-role {
+      font-size: 1.05rem; font-weight: 700; color: var(--navy);
+    }
+    .exp-company { font-size: 0.875rem; color: var(--blue); font-weight: 600; margin-top: 0.2rem; }
+    .exp-date {
+      font-size: 0.78rem; color: var(--muted);
+      background: var(--bg); border: 1px solid var(--border);
+      padding: 0.3rem 0.85rem; border-radius: 100px;
+    }
+    .exp-points { list-style: none; display: grid; gap: 0.55rem; }
+    .exp-points li {
+      font-size: 0.88rem; color: var(--muted);
+      padding-left: 1.25rem; position: relative; line-height: 1.7;
+    }
+    .exp-points li::before {
+      content: ''; position: absolute; left: 0; top: 0.65rem;
+      width: 5px; height: 5px; border-radius: 50%; background: var(--blue);
+    }
+
+    /* PROJECTS */
+    #projects { background: var(--white); }
+    .proj-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+    }
+    .proj-card {
+      border: 1px solid var(--border); border-radius: 14px;
+      padding: 1.5rem; background: var(--bg);
+      transition: box-shadow 0.2s, border-color 0.2s;
+      display: flex; flex-direction: column;
+    }
+    .proj-card:hover {
+      box-shadow: 0 6px 24px rgba(0,0,0,0.07);
+      border-color: #BFDBFE;
+    }
+    .proj-num {
+      font-size: 0.7rem; font-weight: 700; color: var(--light);
+      letter-spacing: 0.1em; margin-bottom: 0.75rem;
+    }
+    .proj-icon { font-size: 1.6rem; margin-bottom: 0.75rem; }
+    .proj-title { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 0.5rem; }
+    .proj-desc { font-size: 0.845rem; color: var(--muted); line-height: 1.7; flex: 1; margin-bottom: 1rem; }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .proj-tag {
+      background: var(--blue-light); color: var(--blue);
+      border: 1px solid #BFDBFE;
+      padding: 0.2rem 0.6rem; border-radius: 100px;
+      font-size: 0.72rem; font-weight: 600;
+    }
+
+    /* CONTACT */
+    #contact { background: var(--bg); }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1.3fr; gap: 2.5rem;
+    }
+    .contact-info-card {
+      background: var(--navy); border-radius: 16px; padding: 2.5rem;
+    }
+    .contact-info-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem; color: var(--white); margin-bottom: 0.5rem;
+    }
+    .contact-info-card p { font-size: 0.875rem; color: rgba(255,255,255,0.5); margin-bottom: 2rem; }
+    .contact-items { display: grid; gap: 0.75rem; }
+    .contact-item {
+      display: flex; align-items: center; gap: 1rem;
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px; padding: 0.875rem 1rem;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .contact-item:hover { background: rgba(255,255,255,0.12); }
+    .contact-item-icon { font-size: 1.1rem; }
+    .contact-item-label { font-size: 0.7rem; color: rgba(255,255,255,0.4); }
+    .contact-item-val { font-size: 0.85rem; color: var(--white); font-weight: 500; }
+
+    .form-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2.5rem;
+    }
+    .form-card h3 {
+      font-size: 1.05rem; font-weight: 700; color: var(--navy);
+      margin-bottom: 1.5rem;
+    }
+    .form-grid { display: grid; gap: 1rem; }
+    .form-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .fg { display: grid; gap: 0.35rem; }
+    .fg label { font-size: 0.78rem; color: var(--muted); font-weight: 500; }
+    .fg input, .fg textarea {
+      background: var(--bg); border: 1.5px solid var(--border);
+      border-radius: 8px; padding: 0.75rem 1rem;
+      color: var(--text); font-family: 'DM Sans', sans-serif;
+      font-size: 0.875rem; outline: none;
+      transition: border-color 0.2s;
+    }
+    .fg input:focus, .fg textarea:focus { border-color: var(--blue); }
+    .fg textarea { min-height: 110px; resize: vertical; }
+    .btn-send {
+      width: 100%; background: var(--blue); color: var(--white);
+      border: none; padding: 0.875rem;
+      border-radius: 8px; font-weight: 700; font-size: 0.9rem;
+      cursor: pointer; transition: background 0.2s;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .btn-send:hover { background: #1D4ED8; }
+
+    /* FOOTER */
+    footer {
+      background: var(--navy); padding: 2rem 3rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem; color: var(--white);
+    }
+    .footer-logo span { color: #60A5FA; }
+    footer p { font-size: 0.78rem; color: rgba(255,255,255,0.4); }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { gap: 1rem; }
+      .nav-cta { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; gap: 2.5rem; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .proj-grid { grid-template-columns: 1fr; }
+      .form-row2 { grid-template-columns: 1fr; }
+      section { padding: 4rem 1.5rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
 </head>
 <body>
-    <div id="particles-js"></div>
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: transparent;">
-        <div class="container">
-            <a href="#home" class="navbar-brand">
-                <img src="image.png" alt="Harsh's Logo" style="height: 50px;">
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Harsh<span>.</span></div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#contact" class="nav-cta">Hire Me</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div style="background:var(--white); border-bottom: 1px solid var(--border);">
+    <div class="hero">
+      <div>
+        <div class="hero-badge">
+          <div class="hero-badge-dot"></div>
+          Available for work · Ontario, Canada
+        </div>
+        <h1>Technical Support<br>Specialist who<br><em>owns the problem.</em></h1>
+        <p class="hero-sub">
+          2+ years resolving SaaS platform issues, API integrations, and system incidents at Aarrowz Inc.
+          I stay with the issue until it's fully fixed — not just closed.
+        </p>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn-blue">Get In Touch</a>
+          <a href="#experience" class="btn-outline">View Experience</a>
+        </div>
+        <div class="hero-meta">
+          <div class="hero-meta-item">
+            <span class="hero-meta-icon">📍</span>
+            <span>Oshawa, Ontario</span>
+          </div>
+          <div class="hero-meta-item">
+            <span class="hero-meta-icon">🎓</span>
+            <span>Durham College</span>
+          </div>
+          <div class="hero-meta-item">
+            <span class="hero-meta-icon">🏅</span>
+            <span>CompTIA A+ In Progress</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-card-top">
+          <div class="profile-avatar">👨‍💻</div>
+          <div class="profile-name">Harsh Panchal</div>
+          <div class="profile-title">IT Support Specialist · Aarrowz Inc.</div>
+        </div>
+        <div class="profile-body">
+          <div class="profile-row">
+            <span class="profile-row-label">Experience</span>
+            <span class="profile-row-val">2+ Years</span>
+          </div>
+          <div class="profile-row">
+            <span class="profile-row-label">Specialization</span>
+            <span class="profile-row-val">SaaS & API Support</span>
+          </div>
+          <div class="profile-row">
+            <span class="profile-row-label">Certification</span>
+            <span class="badge-blue">CompTIA A+ WIP</span>
+          </div>
+          <div class="profile-row">
+            <span class="profile-row-label">Status</span>
+            <span class="badge-green">● Open to Work</span>
+          </div>
+          <div class="profile-row">
+            <span class="profile-row-label">Location</span>
+            <span class="profile-row-val">Oshawa, ON</span>
+          </div>
+          <div class="profile-row">
+            <span class="profile-row-label">Work Type</span>
+            <span class="profile-row-val">Remote / Hybrid</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">About Me</div>
+        <h2 class="section-title">The person behind the tickets</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>I'm a <strong>Computer Programming graduate from Durham College</strong> in Oshawa, Ontario. For the past 2+ years at Aarrowz Inc., I've been the go-to technical contact for customers — diagnosing issues, resolving platform problems, and making sure nothing falls through the cracks.</p>
+          <p>I don't just close tickets. I dig into <strong>why something broke</strong>, collaborate with development teams, document the resolution clearly, and make sure the same issue doesn't come back. That's the kind of support that builds long-term trust.</p>
+          <p>Outside of tech, I'm a <strong>trained pianist</strong> — which has given me patience, precision, and the habit of practicing until something is truly right.</p>
+          <div class="cert-card">
+            <div class="cert-card-icon">🎯</div>
+            <div>
+              <div class="cert-card-label">Currently Studying</div>
+              <div class="cert-card-name">CompTIA A+ Certification</div>
+            </div>
+          </div>
+        </div>
+        <div class="skills-list">
+          <div class="skill-block">
+            <div class="skill-block-label">Support & Process</div>
+            <div class="tags">
+              <span class="tag">Technical Support</span>
+              <span class="tag">API Troubleshooting</span>
+              <span class="tag">SLA Management</span>
+              <span class="tag">Documentation</span>
+              <span class="tag">Agile</span>
+            </div>
+          </div>
+          <div class="skill-block">
+            <div class="skill-block-label">Languages & Data</div>
+            <div class="tags">
+              <span class="tag">Python</span>
+              <span class="tag">SQL</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">HTML / CSS</span>
+              <span class="tag">Java</span>
+            </div>
+          </div>
+          <div class="skill-block">
+            <div class="skill-block-label">Systems & Testing</div>
+            <div class="tags">
+              <span class="tag">Windows</span>
+              <span class="tag">macOS</span>
+              <span class="tag">Network Troubleshooting</span>
+              <span class="tag">Selenium</span>
+              <span class="tag">JUnit</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Work Experience</div>
+        <h2 class="section-title">Where I've made an impact</h2>
+      </div>
+      <div class="exp-list">
+        <div class="exp-card">
+          <div class="exp-top">
+            <div>
+              <div class="exp-role">IT Support Specialist</div>
+              <div class="exp-company">Aarrowz Inc. · Remote</div>
+            </div>
+            <div class="exp-date">Dec 2023 – Present</div>
+          </div>
+          <ul class="exp-points">
+            <li>Served as primary technical contact — owning issues end-to-end via email, phone, and chat until fully resolved</li>
+            <li>Diagnosed root causes of software, API, and system issues; collaborated with dev teams to implement lasting fixes</li>
+            <li>Supported SaaS platform integrations and resolved data flow issues between connected systems</li>
+            <li>Performed SQL data validation and query troubleshooting to ensure data integrity across platforms</li>
+            <li>Built and maintained a knowledge base, reducing repeat ticket volume team-wide</li>
+            <li>Managed concurrent tickets in Agile workflows, prioritizing by SLA requirements and business impact</li>
+          </ul>
+        </div>
+        <div class="exp-card">
+          <div class="exp-top">
+            <div>
+              <div class="exp-role">Shift Manager / Team Member</div>
+              <div class="exp-company">Pizza Hut Canada</div>
+            </div>
+            <div class="exp-date">2022 – Present</div>
+          </div>
+          <ul class="exp-points">
+            <li>Delivered consistent customer service in a high-volume, fast-paced environment</li>
+            <li>Resolved complaints professionally and de-escalated difficult situations under pressure</li>
+            <li>Led team operations during peak shifts — demonstrating leadership and adaptability</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Projects</div>
+        <h2 class="section-title">Things I've built</h2>
+      </div>
+      <div class="proj-grid">
+        <div class="proj-card">
+          <div class="proj-num">01</div>
+          <div class="proj-icon">🌐</div>
+          <div class="proj-title">Portfolio Website</div>
+          <p class="proj-desc">Personal portfolio built with HTML, CSS, and JavaScript. Deployed on GitHub Pages.</p>
+          <div class="proj-tags"><span class="proj-tag">HTML</span><span class="proj-tag">CSS</span><span class="proj-tag">JavaScript</span></div>
+        </div>
+        <div class="proj-card">
+          <div class="proj-num">02</div>
+          <div class="proj-icon">🤖</div>
+          <div class="proj-title">Automated Testing System</div>
+          <p class="proj-desc">Automated test suite for customer registration workflows using Selenium, Appium, and JUnit.</p>
+          <div class="proj-tags"><span class="proj-tag">Selenium</span><span class="proj-tag">Appium</span><span class="proj-tag">JUnit</span></div>
+        </div>
+        <div class="proj-card">
+          <div class="proj-num">03</div>
+          <div class="proj-icon">🗄️</div>
+          <div class="proj-title">Database Optimization</div>
+          <p class="proj-desc">Improved database performance by 30% through SQL indexing strategies and query optimization.</p>
+          <div class="proj-tags"><span class="proj-tag">SQL</span><span class="proj-tag">Indexing</span><span class="proj-tag">Optimization</span></div>
+        </div>
+        <div class="proj-card">
+          <div class="proj-num">04</div>
+          <div class="proj-icon">🔍</div>
+          <div class="proj-title">IT Ticket Tracker</div>
+          <p class="proj-desc">Python CLI tool to log, categorize, and track support tickets by priority and status.</p>
+          <div class="proj-tags"><span class="proj-tag">Python</span><span class="proj-tag">CLI</span><span class="proj-tag">File I/O</span></div>
+        </div>
+        <div class="proj-card">
+          <div class="proj-num">05</div>
+          <div class="proj-icon">📡</div>
+          <div class="proj-title">Network Diagnostics Script</div>
+          <p class="proj-desc">Python script that pings hosts, checks connectivity, and logs latency — for first-line troubleshooting.</p>
+          <div class="proj-tags"><span class="proj-tag">Python</span><span class="proj-tag">Networking</span><span class="proj-tag">Automation</span></div>
+        </div>
+        <div class="proj-card">
+          <div class="proj-num">06</div>
+          <div class="proj-icon">📊</div>
+          <div class="proj-title">SQL Support Analytics</div>
+          <p class="proj-desc">SQL queries analyzing a mock ticket dataset — identifying issue patterns and average resolution times.</p>
+          <div class="proj-tags"><span class="proj-tag">SQL</span><span class="proj-tag">Analysis</span><span class="proj-tag">Reporting</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Contact</div>
+        <h2 class="section-title">Let's connect</h2>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info-card">
+          <h3>Open to opportunities</h3>
+          <p>Technical Support · Help Desk · Customer Success · Solutions Engineer roles in Ontario.</p>
+          <div class="contact-items">
+            <a class="contact-item" href="mailto:hp16082453@gmail.com">
+              <span class="contact-item-icon">✉️</span>
+              <div><div class="contact-item-label">Email</div><div class="contact-item-val">hp16082453@gmail.com</div></div>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                </ul>
-            </div>
+            <a class="contact-item" href="tel:+16479973972">
+              <span class="contact-item-icon">📞</span>
+              <div><div class="contact-item-label">Phone</div><div class="contact-item-val">+1 647-997-3972</div></div>
+            </a>
+            <a class="contact-item" href="https://www.linkedin.com/in/harshpanchal16" target="_blank">
+              <span class="contact-item-icon">💼</span>
+              <div><div class="contact-item-label">LinkedIn</div><div class="contact-item-val">linkedin.com/in/harshpanchal16</div></div>
+            </a>
+            <a class="contact-item" href="https://github.com/harsh-github-1608" target="_blank">
+              <span class="contact-item-icon">🐙</span>
+              <div><div class="contact-item-label">GitHub</div><div class="contact-item-val">github.com/harsh-github-1608</div></div>
+            </a>
+          </div>
         </div>
-    </nav>
-
-    <section id="home">
-        <div class="home-container">
-            <div class="home-content">
-                <h1>Hi, I'm Harsh!</h1>
-                <p>
-                    a passionate <span id="dynamic-role" class="highlight">Web developer</span>.
-                </p>
-                <p>
-                    Explore my portfolio showcasing expertise in full-stack development. 
-                    With a passion for intuitive design and scalable back-end solutions,
-                    I create impactful web applications using modern tools like React, Node.js, and Flask.
-                </p>
-                <a class="btn btn-primary" href="#projects">Explore Now</a>
+        <div class="form-card">
+          <h3>Send a message</h3>
+          <div class="form-grid">
+            <div class="form-row2">
+              <div class="fg"><label>Name</label><input type="text" placeholder="John Smith" /></div>
+              <div class="fg"><label>Email</label><input type="email" placeholder="john@company.com" /></div>
             </div>
-            <div class="home-image">
-                <img src="profile-pic.jpg" alt="Profile Picture" />
-            </div>
+            <div class="fg"><label>Subject</label><input type="text" placeholder="Job opportunity at..." /></div>
+            <div class="fg"><label>Message</label><textarea placeholder="I'd like to discuss..."></textarea></div>
+            <button class="btn-send">Send Message</button>
+          </div>
         </div>
-        
-    </section>
-
-     <!-- "Find Me" Section -->
-       <h2>Find Me Here!</h2>
-     <div class="d-flex justify-content-center gap-3 mt-3">
-       
-        <a href="https://www.linkedin.com/in/harshpanchal16" class="btn btn-outline-secondary bannerIcon">
-            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                <path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"></path>
-            </svg>
-        </a>
-        <a href="https://github.com/harsh-github-1608" class="btn btn-outline-secondary bannerIcon">
-            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8z"></path>
-            </svg>
-        </a>
+      </div>
     </div>
-    <section id="about" class="about-section">
-        <h2>About Me</h2>
-        <div class="about-container">
-            <!-- Education Card -->
-            <div class="about-card" onclick="showModal('educationModal')">
-                <img src="https://img.icons8.com/ios-filled/100/000000/graduation-cap.png" alt="Education">
-                <h3>Education</h3>
-                <p>View my educational history.</p>
-            </div>
-            <!-- Experience Card -->
-            <div class="about-card" onclick="showModal('experienceModal')">
-                <img src="https://img.icons8.com/ios-filled/100/000000/briefcase.png" alt="Experience">
-                <h3>Experience</h3>
-                <p>Learn about my work experience.</p>
-            </div>
-            <!-- Skills Card -->
-            <div class="about-card" onclick="showModal('skillsModal')">
-                <img src="https://img.icons8.com/ios-filled/100/000000/brain.png" alt="Skills">
-                <h3>Professional Skills</h3>
-                <p>Discover my skill set.</p>
-            </div>
-        </div>
-    </section>
+  </section>
 
-    <!-- Education Modal -->
-    <div id="educationModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('educationModal')">&times;</span>
-            <h3>Education History</h3>
-            <p>Here is a detailed overview of my education:</p>
-            <ul>
-                <li>High School Diploma in Computer Science and Mathematics</li>
-                <li>Diploma in Computer Programming, Durham College</li>
-                <li>Certification in Java Programming, Codsoft</li>
-            </ul>
-        </div>
-    </div>
+  <footer>
+    <div class="footer-logo">Harsh<span>.</span></div>
+    <p>© 2025 Harsh Panchal · Oshawa, Ontario</p>
+    <p>Built with care & code</p>
+  </footer>
 
-    <!-- Experience Modal -->
-    <div id="experienceModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('experienceModal')">&times;</span>
-            <h3>Work Experience</h3>
-            <p>Here is a summary of my professional experience:</p>
-            <ul>
-                <li>Python Developer at AARROWZ INC</li>
-                <li>Software Development Intern at COD SOFT</li>
-                <li>Shift Manager at Pizza Hut Canada</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- Skills Modal -->
-    <div id="skillsModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('skillsModal')">&times;</span>
-            <h3>Professional Skills</h3>
-            <p>These are the skills I bring to the table:</p>
-            <ul>
-                <li>Python, Flask, JavaScript</li>
-                <li>Web Development (HTML, CSS, JS)</li>
-                <li>Odoo Development, Version Control (Git)</li>
-            </ul>
-        </div>
-    </div>
-
-    <section id="projects" class="py-5">
-        <div class="container text-center">
-            <h2>Projects</h2>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Weather App</h5>
-                            <p class="card-text">A real-time weather forecast app using React and the OpenWeather API.(Still Working on that)</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Aviation Gallery</h5>
-                            <p class="card-text">The latest airplane models, built with React and Vite.(Still Working on it)</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Portfolio</h5>
-                            <p class="card-text">A Portfolio app built with Html, Css, JavaScript, & many more.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="py-5 bg-dark text-light">
-        <div class="container text-center">
-            <h2>Contact</h2>
-            <form>
-                <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Your Name">
-                </div>
-                <div class="mb-3">
-                    <input type="email" class="form-control" placeholder="Your Email">
-                </div>
-                <div class="mb-3">
-                    <textarea class="form-control" rows="5" placeholder="Your Message"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Send Message</button>
-            </form>
-        </div>
-    </section>
-
-    <footer class="py-3 bg-dark text-light text-center">
-        <p>&copy; 2025 Harsh Panchal. All Rights Reserved.</p>
-    </footer>
-
-    <script src="scripts.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
